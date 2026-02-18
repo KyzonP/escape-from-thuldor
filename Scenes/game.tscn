@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://iasheepv2sa5"]
+
+[ext_resource type="Script" uid="uid://75l0687pucob" path="res://Scripts/game.gd" id="1_wrm1d"]
+[ext_resource type="Script" uid="uid://blpj8m5p5xw0j" path="res://Scripts/parallax.gd" id="3_v158k"]
+[ext_resource type="FontFile" uid="uid://bbu1a6t2y0bd0" path="res://Font/PrStart.ttf" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://dp8moyi4g3p47" path="res://Prefabs/player.tscn" id="4_i6g32"]
+[ext_resource type="PackedScene" uid="uid://cknqj3i4jmjmd" path="res://Prefabs/bullet.tscn" id="5_wowpa"]
+[ext_resource type="Texture2D" uid="uid://dumi0mwke6vpx" path="res://Assets/FloorRoof.png" id="6_i6g32"]
+[ext_resource type="AudioStream" uid="uid://cv37j3jglocjp" path="res://Audio/Music/soundtrack.wav" id="7_1l0tm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2poj3"]
+size = Vector2(640, 34)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_wrm1d")
+
+[node name="FloorRoof-1" type="Sprite2D" parent="."]
+texture = ExtResource("6_i6g32")
+script = ExtResource("3_v158k")
+endPos = -640
+startPos = 640
+travelTime = 4.0
+
+[node name="FloorRoof-2" type="Sprite2D" parent="."]
+position = Vector2(640, 0)
+texture = ExtResource("6_i6g32")
+script = ExtResource("3_v158k")
+endPos = -640
+startPos = 640
+travelTime = 4.0
+
+[node name="Player" parent="." instance=ExtResource("4_i6g32")]
+position = Vector2(-100, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="." groups=["Floor"]]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(0, 168)
+shape = SubResource("RectangleShape2D_2poj3")
+debug_color = Color(1.92523e-07, 0.17370805, 0.20930997, 0.41960785)
+
+[node name="Roof" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roof"]
+position = Vector2(0, -165)
+shape = SubResource("RectangleShape2D_2poj3")
+debug_color = Color(1.4439226e-07, 0.21912342, 0.30235487, 0.41960785)
+
+[node name="Score" type="RichTextLabel" parent="."]
+offset_left = -315.0
+offset_top = -175.0
+offset_right = 320.0
+offset_bottom = -138.0
+theme_override_fonts/normal_font = ExtResource("3_wrm1d")
+text = "10000m"
+
+[node name="HighScore" type="RichTextLabel" parent="."]
+offset_left = -315.0
+offset_top = -175.0
+offset_right = 320.0
+offset_bottom = -138.0
+theme_override_fonts/normal_font = ExtResource("3_wrm1d")
+text = "10000m"
+horizontal_alignment = 2
+
+[node name="GameOver" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -315.0
+offset_top = -75.0
+offset_right = 320.0
+offset_bottom = 181.0
+theme_override_fonts/normal_font = ExtResource("3_wrm1d")
+bbcode_enabled = true
+text = "[center]Game Over![/center]"
+horizontal_alignment = 2
+
+[node name="NewRecord" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -315.0
+offset_top = -8.0
+offset_right = 320.0
+offset_bottom = 181.0
+theme_override_fonts/normal_font = ExtResource("3_wrm1d")
+bbcode_enabled = true
+text = "[center]New High Score![/center]"
+horizontal_alignment = 2
+
+[node name="Restart" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -315.0
+offset_top = 54.0
+offset_right = 320.0
+offset_bottom = 181.0
+theme_override_fonts/normal_font = ExtResource("3_wrm1d")
+bbcode_enabled = true
+text = "[center]Tap to Restart![/center]"
+horizontal_alignment = 2
+
+[node name="Bullet" parent="." instance=ExtResource("5_wowpa")]
+position = Vector2(-67, -60)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_1l0tm")
+autoplay = true

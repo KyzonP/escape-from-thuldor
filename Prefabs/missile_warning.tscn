@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqeu13udtdxcc"]
+
+[ext_resource type="Script" uid="uid://dlttdr5duaf4a" path="res://Scripts/missile_warning.gd" id="1_ik7ku"]
+[ext_resource type="Texture2D" uid="uid://bbxqx0871a8ji" path="res://Assets/MissileWarning.png" id="2_72l2p"]
+[ext_resource type="Script" uid="uid://e22wgrp6vwmn" path="res://Scripts/flash.gd" id="3_ewf1q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
+
+[node name="MissileWarning" type="Area2D" groups=["DestroyOnReset"]]
+script = ExtResource("1_ik7ku")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_72l2p")
+script = ExtResource("3_ewf1q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wowpa")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

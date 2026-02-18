@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://dv3pdp4gcte0y"]
+
+[ext_resource type="Script" uid="uid://c2e5bk6cbfepm" path="res://Scripts/moveLeft.gd" id="1_tyrm4"]
+[ext_resource type="Texture2D" uid="uid://du5ch0i1o23ss" path="res://Assets/Missile.png" id="2_4xrqn"]
+[ext_resource type="AudioStream" uid="uid://bxbcpntwt4w4a" path="res://Audio/Sound Effects/Magic.wav" id="3_03ws2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xrqn"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(0, 0, 60, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03ws2"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(60, 0, 60, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ksit"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(120, 0, 60, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcw8h"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(180, 0, 60, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5sw0"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(240, 0, 60, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlig5"]
+atlas = ExtResource("2_4xrqn")
+region = Rect2(300, 0, 60, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ex05x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xrqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03ws2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ksit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcw8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5sw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlig5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrm1d"]
+size = Vector2(20, 60)
+
+[node name="Missile" type="Area2D" groups=["DestroyOnReset", "Obstacle"]]
+rotation = 1.5707964
+script = ExtResource("1_tyrm4")
+acceleration = 2
+
+[node name="Missile" type="AnimatedSprite2D" parent="."]
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_ex05x")
+autoplay = "default"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wrm1d")
+
+[node name="Magic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_03ws2")
+volume_db = -10.0
+autoplay = true

@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://cknqj3i4jmjmd"]
+
+[ext_resource type="Script" uid="uid://ba74j1smjdstq" path="res://Scripts/bullet.gd" id="1_0oen4"]
+[ext_resource type="Texture2D" uid="uid://c2tpa1dgf4sjs" path="res://Assets/Bullet.png" id="2_m4f65"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dga7"]
+radius = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuf4i"]
+atlas = ExtResource("2_m4f65")
+region = Rect2(0, 0, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nxya"]
+atlas = ExtResource("2_m4f65")
+region = Rect2(4, 0, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iohxx"]
+atlas = ExtResource("2_m4f65")
+region = Rect2(8, 0, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sxh4"]
+atlas = ExtResource("2_m4f65")
+region = Rect2(12, 0, 4, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3b62x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuf4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nxya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iohxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1sxh4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Bullet" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_0oen4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7dga7")
+debug_color = Color(0.8682469, 0.3501321, 0.1238428, 0.41960785)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_7dga7")
+debug_color = Color(0.8682469, 0.3501321, 0.1238428, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3b62x")
+autoplay = "default"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

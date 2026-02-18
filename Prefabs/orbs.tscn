@@ -1,0 +1,123 @@
+[gd_scene load_steps=9 format=3 uid="uid://s6283vuwvhna"]
+
+[ext_resource type="Script" uid="uid://c2e5bk6cbfepm" path="res://Scripts/moveLeft.gd" id="1_7wiq3"]
+[ext_resource type="Texture2D" uid="uid://tndlln86vbp1" path="res://Assets/Orbs.png" id="2_rsi2g"]
+[ext_resource type="Texture2D" uid="uid://ds4rq3sn36t4i" path="res://Assets/OrbWheel.png" id="3_0t3ji"]
+[ext_resource type="Texture2D" uid="uid://oqa4rjr41u73" path="res://Assets/OrbWheelGlow.png" id="4_5lit2"]
+[ext_resource type="Script" uid="uid://jnowj6f2d5i5" path="res://Scripts/orb.gd" id="4_dp8n5"]
+[ext_resource type="AudioStream" uid="uid://3dfc5kllkrln" path="res://Audio/Sound Effects/Humming.wav" id="6_gldvg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebmjs"]
+radius = 20.024984
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ebmjs"]
+size = Vector2(40, 10)
+
+[node name="Orbs" type="Area2D" groups=["DestroyOnReset", "Obstacle"]]
+rotation = 1.5707964
+script = ExtResource("1_7wiq3")
+
+[node name="Ball1" type="CollisionShape2D" parent="."]
+position = Vector2(40, 0)
+shape = SubResource("CircleShape2D_ebmjs")
+
+[node name="Ball2" type="CollisionShape2D" parent="."]
+position = Vector2(-40, 0)
+shape = SubResource("CircleShape2D_ebmjs")
+
+[node name="Connector" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ebmjs")
+
+[node name="Orbs" type="Sprite2D" parent="."]
+visible = false
+rotation = 1.5707964
+texture = ExtResource("2_rsi2g")
+
+[node name="UpPurple" type="CPUParticles2D" parent="."]
+position = Vector2(-40, 1.7484556e-06)
+amount = 16
+lifetime = 0.08
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 25)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+linear_accel_max = 53.61
+color = Color(1, 0, 1, 1)
+
+[node name="DownPurple" type="CPUParticles2D" parent="."]
+position = Vector2(40, 0)
+amount = 16
+lifetime = 0.08
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 25)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+linear_accel_max = 53.61
+color = Color(1, 0, 1, 1)
+
+[node name="UpWhite" type="CPUParticles2D" parent="."]
+position = Vector2(-40, 1.7484556e-06)
+amount = 64
+lifetime = 0.08
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5.695)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+linear_accel_max = 53.61
+color = Color(1, 0.8784314, 1, 1)
+
+[node name="DownWhite" type="CPUParticles2D" parent="."]
+position = Vector2(40, 0)
+amount = 64
+lifetime = 0.08
+speed_scale = 0.25
+randomness = 1.0
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 5.695)
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+linear_accel_max = 53.61
+color = Color(1, 0.8784314, 1, 1)
+
+[node name="SpriteManager" type="Node2D" parent="."]
+script = ExtResource("4_dp8n5")
+
+[node name="Orb1" type="Sprite2D" parent="SpriteManager"]
+position = Vector2(-40, 1.7484556e-06)
+texture = ExtResource("3_0t3ji")
+
+[node name="Glow1" type="Sprite2D" parent="SpriteManager/Orb1"]
+texture = ExtResource("4_5lit2")
+
+[node name="Orb2" type="Sprite2D" parent="SpriteManager"]
+position = Vector2(40, -1.7484556e-06)
+texture = ExtResource("3_0t3ji")
+
+[node name="Glow2" type="Sprite2D" parent="SpriteManager/Orb2"]
+texture = ExtResource("4_5lit2")
+
+[node name="Humming" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_gldvg")
+autoplay = true
+max_distance = 300.0
+attenuation = 0.8122524

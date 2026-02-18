@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw3w5bwiplupk"]
+
+[ext_resource type="Script" uid="uid://6ontej2tks4c" path="res://Scripts/laser_manager.gd" id="1_4tmif"]
+
+[node name="LaserManager" type="Node2D" groups=["DestroyOnReset"]]
+script = ExtResource("1_4tmif")

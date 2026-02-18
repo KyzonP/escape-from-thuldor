@@ -1,0 +1,165 @@
+[gd_scene load_steps=23 format=3 uid="uid://dp8moyi4g3p47"]
+
+[ext_resource type="Script" uid="uid://hk47kiwkmtv2" path="res://Scripts/player.gd" id="1_5wxv7"]
+[ext_resource type="Texture2D" uid="uid://c4ecfwjiwt6hh" path="res://Assets/Svet.png" id="2_y5hcb"]
+[ext_resource type="AudioStream" uid="uid://60b6kj3t274c" path="res://Audio/Sound Effects/Jetboot.wav" id="3_y5hcb"]
+[ext_resource type="AudioStream" uid="uid://cn2ksff2ehgcy" path="res://Audio/Sound Effects/Footstep.wav" id="4_2nftw"]
+[ext_resource type="AudioStream" uid="uid://cusabjbyp7i86" path="res://Audio/Sound Effects/Boom.wav" id="5_knrd4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2poj3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(408, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(374, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(340, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(306, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(306, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(340, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(374, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1phco"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(408, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb51f"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(102, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnt18"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(136, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewbju"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(170, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qyi"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(204, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iivbl"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(238, 0, 34, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nbq1"]
+atlas = ExtResource("2_y5hcb")
+region = Rect2(272, 0, 34, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i6g32"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}],
+"loop": false,
+"name": &"Fall",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1phco")
+}],
+"loop": false,
+"name": &"Fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb51f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnt18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewbju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iivbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nbq1")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1l0tm"]
+size = Vector2(20, 4)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 9
+script = ExtResource("1_5wxv7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2poj3")
+debug_color = Color(0.900884, 0.9231399, 0.95898277, 0.41960785)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_i6g32")
+animation = &"Fly"
+autoplay = "Fall"
+
+[node name="FloorCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FloorCheck"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_1l0tm")
+
+[node name="Jetboot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_y5hcb")
+pitch_scale = 0.76
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2nftw")
+
+[node name="Boom" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_knrd4")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="body_entered" from="FloorCheck" to="." method="_on_floor_check_area_entered"]

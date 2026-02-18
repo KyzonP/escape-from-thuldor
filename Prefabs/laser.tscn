@@ -1,0 +1,141 @@
+[gd_scene load_steps=21 format=3 uid="uid://uuc1ptffwh5r"]
+
+[ext_resource type="Script" uid="uid://eej0xevu1bor" path="res://Scripts/laser.gd" id="1_en5pc"]
+[ext_resource type="Texture2D" uid="uid://ngmyynyqvl6y" path="res://Assets/LaserActive.png" id="3_kdfnu"]
+[ext_resource type="Texture2D" uid="uid://rsk65aahcqkj" path="res://Assets/LaserInactive.png" id="4_c8llf"]
+[ext_resource type="Texture2D" uid="uid://dhv6l8elke7d2" path="res://Assets/LaserWarning.png" id="4_r8hmr"]
+[ext_resource type="Texture2D" uid="uid://c7e5k1c38ynak" path="res://Assets/LaserSource.png" id="5_r8hmr"]
+[ext_resource type="AudioStream" uid="uid://but2rhyxsp8sh" path="res://Audio/Sound Effects/Lightning.wav" id="6_c8llf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wowpa"]
+size = Vector2(640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8hmr"]
+atlas = ExtResource("3_kdfnu")
+region = Rect2(0, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8llf"]
+atlas = ExtResource("3_kdfnu")
+region = Rect2(640, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atuuj"]
+atlas = ExtResource("3_kdfnu")
+region = Rect2(1280, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajae4"]
+atlas = ExtResource("3_kdfnu")
+region = Rect2(1920, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jlr1"]
+atlas = ExtResource("4_c8llf")
+region = Rect2(0, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu10j"]
+atlas = ExtResource("4_c8llf")
+region = Rect2(640, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvew0"]
+atlas = ExtResource("4_c8llf")
+region = Rect2(1280, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xt8h5"]
+atlas = ExtResource("4_c8llf")
+region = Rect2(1920, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3qdp"]
+atlas = ExtResource("4_r8hmr")
+region = Rect2(0, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5x2ue"]
+atlas = ExtResource("4_r8hmr")
+region = Rect2(640, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s806i"]
+atlas = ExtResource("4_r8hmr")
+region = Rect2(1280, 0, 640, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_run36"]
+atlas = ExtResource("4_r8hmr")
+region = Rect2(1920, 0, 640, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c8llf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8hmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8llf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atuuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajae4")
+}],
+"loop": true,
+"name": &"active",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jlr1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu10j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvew0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xt8h5")
+}],
+"loop": true,
+"name": &"inactive",
+"speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3qdp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5x2ue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s806i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_run36")
+}],
+"loop": true,
+"name": &"warning",
+"speed": 8.0
+}]
+
+[node name="Laser" type="Area2D" groups=["DestroyOnReset"]]
+script = ExtResource("1_en5pc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wowpa")
+disabled = true
+
+[node name="Laser" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c8llf")
+animation = &"warning"
+autoplay = "inactive"
+
+[node name="LeftOrb" type="Sprite2D" parent="."]
+position = Vector2(-330, 0)
+texture = ExtResource("5_r8hmr")
+
+[node name="RightOrb" type="Sprite2D" parent="."]
+position = Vector2(330, 0)
+texture = ExtResource("5_r8hmr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_c8llf")
+volume_db = -19.28
+pitch_scale = 0.27
+autoplay = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
